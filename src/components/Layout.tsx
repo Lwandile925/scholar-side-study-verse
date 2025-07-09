@@ -8,7 +8,8 @@ import {
   MessageSquare, 
   Users, 
   Settings,
-  GraduationCap
+  GraduationCap,
+  Info
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -20,6 +21,7 @@ const Layout = () => {
     { name: 'Study', href: '/study', icon: BookOpen },
     { name: 'Homework', href: '/homework-help', icon: MessageSquare },
     { name: 'Groups', href: '/groups', icon: Users },
+    { name: 'About', href: '/about', icon: Info },
     { name: 'Settings', href: '/settings', icon: Settings },
   ];
 
@@ -42,7 +44,7 @@ const Layout = () => {
 
       {/* Bottom Navigation (Mobile) */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t md:hidden">
-        <div className="grid grid-cols-5 h-16">
+        <div className="grid grid-cols-6 h-16">
           {navigation.map((item) => {
             const isActive = location.pathname === item.href;
             return (
@@ -56,8 +58,8 @@ const Layout = () => {
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                <item.icon className="h-5 w-5" />
-                <span>{item.name}</span>
+                <item.icon className="h-4 w-4" />
+                <span className="text-[10px]">{item.name}</span>
               </Link>
             );
           })}
