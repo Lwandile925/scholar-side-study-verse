@@ -16,15 +16,15 @@ import {
 
 const AboutScreen = () => {
   const founder = {
-    name: "Alex Chen",
+    name: "Lwandile Gazu",
     title: "Founder & CEO of ScholarSide",
-    bio: "Former Stanford Computer Science student passionate about democratizing education through AI. After struggling with traditional study methods, Alex created ScholarSide to help students learn more effectively and collaboratively.",
+    bio: "Former Stanford Computer Science student passionate about democratizing education through AI. After struggling with traditional study methods, Lwandile created ScholarSide to help students learn more effectively and collaboratively.",
     mission: "To make personalized, AI-powered education accessible to every student, regardless of their background or learning style.",
     image: "/placeholder.svg",
     social: {
-      email: "alex@scholarside.com",
-      linkedin: "alexchen-scholarside",
-      twitter: "@alexchen_ai"
+      email: "lwandile@scholarside.com",
+      linkedin: "lwandile-gazu-scholarside",
+      twitter: "@lwandile_ai"
     }
   };
 
