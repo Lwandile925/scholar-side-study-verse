@@ -10,6 +10,8 @@ import OnboardingScreen from "@/pages/OnboardingScreen";
 import HomeScreen from "@/pages/HomeScreen";
 import StudyScreen from "@/pages/StudyScreen";
 import AboutScreen from "@/pages/AboutScreen";
+import HomeworkHelpScreen from "@/pages/HomeworkHelpScreen";
+import StudyGroupsScreen from "@/pages/StudyGroupsScreen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,8 +42,8 @@ const App = () => (
               <Route path="home" element={<HomeScreen />} />
               <Route path="study" element={<StudyScreen />} />
               <Route path="about" element={<AboutScreen />} />
-              <Route path="homework-help" element={<div className="p-8 text-center">Homework Help - Coming Soon!</div>} />
-              <Route path="groups" element={<div className="p-8 text-center">Study Groups - Coming Soon!</div>} />
+              <Route path="homework-help" element={<HomeworkHelpScreen />} />
+              <Route path="groups" element={<StudyGroupsScreen />} />
               <Route path="settings" element={<div className="p-8 text-center">Settings - Coming Soon!</div>} />
             </Route>
             <Route path="*" element={<NotFound />} />
