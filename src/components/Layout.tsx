@@ -11,58 +11,164 @@ import {
   GraduationCap,
   Info,
   Phone,
-  Mail
+  Mail,
+  Menu,
+  X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
 
 const Layout = () => {
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const navigation = [
     { name: 'Home', href: '/home', icon: Home },
     { name: 'Study', href: '/study', icon: BookOpen },
-    { name: 'Homework', href: '/homework-help', icon: MessageSquare },
-    { name: 'Groups', href: '/groups', icon: Users },
+    { name: 'Homework Help', href: '/homework-help', icon: MessageSquare },
+    { name: 'Study Groups', href: '/groups', icon: Users },
     { name: 'About', href: '/about', icon: Info },
-    { name: 'Settings', href: '/settings', icon: Settings },
   ];
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Top Navigation */}
+      {/* Website Header Navigation */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
-          <Link to="/home" className="flex items-center space-x-2">
-            <GraduationCap className="h-6 w-6 text-primary" />
-            <span className="font-bold text-lg">ScholarSide</span>
-          </Link>
+        <div className="container mx-auto px-4">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
+            <Link to="/home" className="flex items-center space-x-2">
+              <GraduationCap className="h-8 w-8 text-primary" />
+              <span className="font-bold text-xl">ScholarSide</span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-8">
+              {navigation.map((item) => {
+                const isActive = location.pathname === item.href;
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={cn(
+                      "text-sm font-medium transition-colors hover:text-primary",
+                      isActive 
+                        ? "text-primary" 
+                        : "text-muted-foreground"
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
+              <Link
+                to="/settings"
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  location.pathname === '/settings' 
+                    ? "text-primary" 
+                    : "text-muted-foreground"
+                )}
+              >
+                <Settings className="h-4 w-4" />
+              </Link>
+            </nav>
+
+            {/* Mobile menu button */}
+            <button
+              className="md:hidden"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="md:hidden border-t py-4">
+              <nav className="flex flex-col space-y-4">
+                {navigation.map((item) => {
+                  const isActive = location.pathname === item.href;
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className={cn(
+                        "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary px-2 py-1 rounded-md",
+                        isActive 
+                          ? "text-primary bg-primary/10" 
+                          : "text-muted-foreground"
+                      )}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.name}</span>
+                    </Link>
+                  );
+                })}
+                <Link
+                  to="/settings"
+                  className={cn(
+                    "flex items-center space-x-2 text-sm font-medium transition-colors hover:text-primary px-2 py-1 rounded-md",
+                    location.pathname === '/settings' 
+                      ? "text-primary bg-primary/10" 
+                      : "text-muted-foreground"
+                  )}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Settings className="h-4 w-4" />
+                  <span>Settings</span>
+                </Link>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 pb-16 md:pb-0">
+      <main className="flex-1">
         <Outlet />
       </main>
 
-      {/* Footer */}
+      {/* Website Footer */}
       <footer className="border-t bg-muted/30 mt-auto">
-        <div className="container py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="container mx-auto px-4 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Brand */}
-            <div className="space-y-4">
+            <div className="space-y-4 md:col-span-2">
               <div className="flex items-center space-x-2">
                 <GraduationCap className="h-6 w-6 text-primary" />
                 <span className="font-bold text-lg">ScholarSide</span>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Your ultimate study companion for academic success.
+              <p className="text-sm text-muted-foreground max-w-md">
+                Your ultimate study companion for academic success. We provide comprehensive tools and resources to help students excel in their educational journey.
               </p>
+            </div>
+
+            {/* Quick Links */}
+            <div className="space-y-4">
+              <h3 className="font-semibold">Quick Links</h3>
+              <div className="flex flex-col space-y-2 text-sm">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
 
             {/* Contact Information */}
             <div className="space-y-4">
               <h3 className="font-semibold">Contact Us</h3>
-              <div className="space-y-2 text-sm">
+              <div className="space-y-3 text-sm">
                 <div className="flex items-center space-x-2">
                   <Phone className="h-4 w-4 text-muted-foreground" />
                   <span>0818780199</span>
@@ -82,85 +188,16 @@ const Layout = () => {
                 </div>
               </div>
             </div>
-
-            {/* Quick Links */}
-            <div className="space-y-4">
-              <h3 className="font-semibold">Quick Links</h3>
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                {navigation.slice(0, 4).map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Copyright */}
-          <div className="border-t pt-6 mt-6">
+          <div className="border-t pt-6 mt-8">
             <p className="text-center text-sm text-muted-foreground">
               © 2025 Lwandile Gazu Digital. All rights reserved.
             </p>
           </div>
         </div>
       </footer>
-
-      {/* Bottom Navigation (Mobile) */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t md:hidden">
-        <div className="grid grid-cols-6 h-16">
-          {navigation.map((item) => {
-            const isActive = location.pathname === item.href;
-            return (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={cn(
-                  "flex flex-col items-center justify-center space-y-1 text-xs",
-                  isActive 
-                    ? "text-primary bg-primary/10" 
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                <item.icon className="h-4 w-4" />
-                <span className="text-[10px]">{item.name}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
-
-      {/* Desktop Sidebar */}
-      <aside className="fixed left-0 top-14 z-40 hidden w-64 h-[calc(100vh-3.5rem)] border-r bg-background md:block">
-        <div className="flex flex-col h-full p-4">
-          <nav className="flex-1 space-y-2">
-            {navigation.map((item) => {
-              const isActive = location.pathname === item.href;
-              return (
-                <Button
-                  key={item.name}
-                  variant={isActive ? "secondary" : "ghost"}
-                  className="w-full justify-start"
-                  asChild
-                >
-                  <Link to={item.href}>
-                    <item.icon className="mr-2 h-4 w-4" />
-                    {item.name}
-                  </Link>
-                </Button>
-              );
-            })}
-          </nav>
-        </div>
-      </aside>
-
-      {/* Desktop Main Content Wrapper */}
-      <div className="hidden md:block md:pl-64">
-        {/* Content is handled by Outlet above */}
-      </div>
     </div>
   );
 };

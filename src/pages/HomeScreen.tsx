@@ -1,189 +1,139 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import { 
   BookOpen, 
   MessageSquare, 
-  Clock, 
-  Target, 
+  Users, 
+  GraduationCap,
   TrendingUp,
-  FileText,
-  Users,
-  Zap
+  Clock,
+  Target,
+  Star,
+  ArrowRight
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
 const HomeScreen = () => {
-  const navigate = useNavigate();
-  
-  // Mock data - would come from backend in real app
-  const userStats = {
-    dailyStreak: 5,
-    studyTime: 120, // minutes
-    flashcardsReviewed: 25,
-    questionsAnswered: 12
-  };
-
-  const todaysTasks = [
-    { id: 1, title: 'Math Homework - Chapter 5', due: '2:00 PM', priority: 'high' },
-    { id: 2, title: 'History Essay Draft', due: 'Tomorrow', priority: 'medium' },
-    { id: 3, title: 'Science Quiz Prep', due: 'Friday', priority: 'low' }
-  ];
-
-  const quickActions = [
-    { 
-      title: 'Upload Material', 
-      description: 'Add notes or assignments for AI help',
-      icon: FileText,
-      action: () => navigate('/study')
+  const features = [
+    {
+      icon: BookOpen,
+      title: 'Smart Study Tools',
+      description: 'Interactive flashcards, notes, and personalized study sessions to maximize your learning efficiency.',
+      link: '/study'
     },
-    { 
-      title: 'Homework Help', 
-      description: 'Get instant help with assignments',
+    {
       icon: MessageSquare,
-      action: () => navigate('/homework-help')
+      title: 'Homework Help',
+      description: 'Get instant AI assistance or connect with expert tutors for personalized homework support.',
+      link: '/homework-help'
     },
-    { 
-      title: 'Study Session', 
-      description: 'Start focused study with AI guidance',
-      icon: Target,
-      action: () => navigate('/study')
-    },
-    { 
-      title: 'Join Study Group', 
-      description: 'Collaborate with other students',
+    {
       icon: Users,
-      action: () => navigate('/groups')
+      title: 'Study Groups',
+      description: 'Join collaborative study groups and connect with peers who share your academic interests.',
+      link: '/groups'
     }
   ];
 
+  const stats = [
+    { icon: TrendingUp, label: 'Success Rate', value: '95%' },
+    { icon: Clock, label: 'Study Hours Saved', value: '1000+' },
+    { icon: Target, label: 'Goals Achieved', value: '500+' },
+    { icon: Star, label: 'User Rating', value: '4.9/5' }
+  ];
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-primary text-primary-foreground p-6">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl font-bold mb-2">Good morning! 👋</h1>
-          <p className="text-primary-foreground/80">Ready to continue your learning journey?</p>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="py-20 px-4 text-center bg-gradient-to-b from-primary/5 to-background">
+        <div className="container mx-auto max-w-4xl">
+          <div className="flex justify-center mb-6">
+            <GraduationCap className="h-16 w-16 text-primary" />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Your Ultimate <span className="text-primary">Study Companion</span>
+          </h1>
+          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Transform your learning experience with AI-powered study tools, expert tutoring, and collaborative study groups.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" asChild>
+              <Link to="/study">
+                Get Started <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link to="/about">Learn More</Link>
+            </Button>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-4xl mx-auto p-4 space-y-6">
-        {/* Stats Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary">{userStats.dailyStreak}</div>
-              <div className="text-sm text-muted-foreground">Day Streak</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary">{userStats.studyTime}m</div>
-              <div className="text-sm text-muted-foreground">Study Time</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary">{userStats.flashcardsReviewed}</div>
-              <div className="text-sm text-muted-foreground">Flashcards</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary">{userStats.questionsAnswered}</div>
-              <div className="text-sm text-muted-foreground">Questions</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Today's Tasks */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Clock className="h-5 w-5" />
-              Today's Assignments
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {todaysTasks.map(task => (
-              <div key={task.id} className="flex items-center justify-between p-3 border rounded-lg">
-                <div>
-                  <h4 className="font-medium">{task.title}</h4>
-                  <p className="text-sm text-muted-foreground">Due: {task.due}</p>
-                </div>
-                <div className={`px-2 py-1 rounded text-xs ${
-                  task.priority === 'high' ? 'bg-destructive/10 text-destructive' :
-                  task.priority === 'medium' ? 'bg-yellow-500/10 text-yellow-600' :
-                  'bg-green-500/10 text-green-600'
-                }`}>
-                  {task.priority}
-                </div>
+      {/* Stats Section */}
+      <section className="py-16 px-4 bg-muted/30">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <stat.icon className="h-8 w-8 text-primary mx-auto mb-2" />
+                <div className="text-2xl font-bold mb-1">{stat.value}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
               </div>
             ))}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
+      </section>
 
-        {/* Quick Actions */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Zap className="h-5 w-5" />
-              Quick Actions
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {quickActions.map((action, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  className="h-auto p-4 justify-start"
-                  onClick={action.action}
-                >
-                  <div className="flex items-start gap-3">
-                    <action.icon className="h-5 w-5 mt-0.5 text-primary" />
-                    <div className="text-left">
-                      <div className="font-medium">{action.title}</div>
-                      <div className="text-sm text-muted-foreground">{action.description}</div>
-                    </div>
-                  </div>
-                </Button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+      {/* Features Section */}
+      <section className="py-20 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Everything You Need to Succeed</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Comprehensive tools and resources designed to enhance your learning experience and academic performance.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="group hover:shadow-lg transition-shadow cursor-pointer">
+                <CardHeader>
+                  <feature.icon className="h-12 w-12 text-primary mb-4 group-hover:scale-110 transition-transform" />
+                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  <CardDescription className="text-base">{feature.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button variant="ghost" asChild className="w-full justify-start">
+                    <Link to={feature.link}>
+                      Explore <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        {/* Progress Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5" />
-              Weekly Progress
-            </CardTitle>
-            <CardDescription>You're doing great! Keep up the momentum.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Study Goal</span>
-                  <span>75%</span>
-                </div>
-                <Progress value={75} />
-              </div>
-              <div>
-                <div className="flex justify-between text-sm mb-1">
-                  <span>Assignments Completed</span>
-                  <span>60%</span>
-                </div>
-                <Progress value={60} />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-primary text-primary-foreground">
+        <div className="container mx-auto text-center max-w-3xl">
+          <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Studies?</h2>
+          <p className="text-lg mb-8 opacity-90">
+            Join thousands of students who have already improved their academic performance with ScholarSide.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" variant="secondary" asChild>
+              <Link to="/study">Start Studying Now</Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link to="/homework-help">Get Homework Help</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
