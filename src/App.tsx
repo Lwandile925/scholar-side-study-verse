@@ -12,6 +12,7 @@ import StudyScreen from "@/pages/StudyScreen";
 import AboutScreen from "@/pages/AboutScreen";
 import HomeworkHelpScreen from "@/pages/HomeworkHelpScreen";
 import StudyGroupsScreen from "@/pages/StudyGroupsScreen";
+import SettingsScreen from "@/pages/SettingsScreen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,7 +45,7 @@ const App = () => (
               <Route path="about" element={<AboutScreen />} />
               <Route path="homework-help" element={<HomeworkHelpScreen />} />
               <Route path="groups" element={<StudyGroupsScreen />} />
-              <Route path="settings" element={<div className="p-8 text-center">Settings - Coming Soon!</div>} />
+              <Route path="settings" element={<SettingsScreen />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
