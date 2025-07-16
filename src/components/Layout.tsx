@@ -21,6 +21,7 @@ import { useState } from 'react';
 const Layout = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const currentYear = new Date().getFullYear();
   
   const navigation = [
     { name: 'Home', href: '/home', icon: Home },
@@ -193,7 +194,7 @@ const Layout = () => {
           {/* Copyright */}
           <div className="border-t pt-6 mt-8">
             <p className="text-center text-sm text-muted-foreground">
-              © 2025 Lwandile Gazu Digital. All rights reserved.
+              © {currentYear} Lwandile Gazu Digital. All rights reserved.
             </p>
           </div>
         </div>
